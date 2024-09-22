@@ -1,0 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "RobotoRegular";
+}
+
+@font-face {
+  font-family: "RobotoRegular";
+  src: local("Roboto-Regular.tff"), url("./assets/fonts/Roboto-Regular.ttf");
+}
