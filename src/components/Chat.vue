@@ -10,9 +10,8 @@ const props = defineProps<{
   username: string;
 }>();
 
-const socket = io(import.meta.env.VITE_API_BASE_URL, {
-  path: "/chat/api/socket.io",
-});
+// on my server VITE_API_BASE_URL is: https://auju.org
+const socket = io(import.meta.env.VITE_API_BASE_URL + "/chat/api");
 
 const messageInput = ref<HTMLDivElement | null>(null);
 const messages = ref<messageGroupI[]>([]);
