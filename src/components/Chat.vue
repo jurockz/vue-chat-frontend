@@ -10,9 +10,16 @@ const props = defineProps<{
   username: string;
 }>();
 
-// on my server VITE_API_BASE_URL is: https://auju.org
 const socket = io(import.meta.env.VITE_API_BASE_URL + "/chat/api", {
   path: "/chat/api/socket.io",
+});
+
+socket.on("connect", () => {
+  console.log("Successfully connected to the socket server!");
+});
+
+socket.on("connect_error", (error) => {
+  console.error("Connection failed:", error);
 });
 
 const messageInput = ref<HTMLDivElement | null>(null);
@@ -36,7 +43,7 @@ onMounted(async () => {
   }
 
   // Subscribe to socket: all
-  socket.on("chat/api/all", (messageGroup: messageGroupI) => {
+  socket.on("all", (messageGroup: messageGroupI) => {
     addMessage(messageGroup);
   });
 });
@@ -62,7 +69,8 @@ const sendMessage = () => {
         messages: [{ id: uuidv4(), message }],
       };
       addMessage(group);
-      socket.emit("chat/api/sendMessage", group);
+      console.log("SEND_MESSAGE");
+      socket.emit("sendMessage", group);
     }
     messageInput.value.innerText = "";
   }
