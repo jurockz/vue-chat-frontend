@@ -10,7 +10,9 @@ const props = defineProps<{
   username: string;
 }>();
 
-const socket = io("http://localhost:3500");
+const socket = io(import.meta.env.VITE_API_BASE_URL, {
+  path: "/chat/api/socket.io",
+});
 
 const messageInput = ref<HTMLDivElement | null>(null);
 const messages = ref<messageGroupI[]>([]);
@@ -19,7 +21,7 @@ const messageContainer = ref<HTMLDivElement | null>(null);
 onMounted(async () => {
   try {
     const response = await fetch(
-      import.meta.env.VITE_API_BASE_URL + "/messages"
+      import.meta.env.VITE_API_BASE_URL + "/chat/api/messages"
     );
     if (response.ok) {
       const data = await response.json();
@@ -33,9 +35,8 @@ onMounted(async () => {
   }
 
   // Subscribe to socket: all
-  socket.on("all", (messageGroup: messageGroupI) => {
+  socket.on("chat/api/all", (messageGroup: messageGroupI) => {
     addMessage(messageGroup);
-    // scrollToBottom();
   });
 });
 
@@ -60,8 +61,7 @@ const sendMessage = () => {
         messages: [{ id: uuidv4(), message }],
       };
       addMessage(group);
-      socket.emit("sendMessage", group);
-      // scrollToBottom();
+      socket.emit("chat/api/sendMessage", group);
     }
     messageInput.value.innerText = "";
   }
