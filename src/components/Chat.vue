@@ -10,7 +10,7 @@ const props = defineProps<{
   username: string;
 }>();
 
-const socket = io(import.meta.env.VITE_API_BASE_URL + "/chat/api");
+const socket = io("http://localhost:3500");
 
 const messageInput = ref<HTMLDivElement | null>(null);
 const messages = ref<messageGroupI[]>([]);
@@ -19,7 +19,7 @@ const messageContainer = ref<HTMLDivElement | null>(null);
 onMounted(async () => {
   try {
     const response = await fetch(
-      import.meta.env.VITE_API_BASE_URL + "/chat/api/messages"
+      import.meta.env.VITE_API_BASE_URL + "/messages"
     );
     if (response.ok) {
       const data = await response.json();
