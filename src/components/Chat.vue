@@ -10,7 +10,7 @@ const props = defineProps<{
   username: string;
 }>();
 
-const socket = io(import.meta.env.VITE_API_BASE_URL);
+const socket = io(import.meta.env.VITE_API_BASE_URL + "/chat/api");
 
 const messageInput = ref<HTMLDivElement | null>(null);
 const messages = ref<messageGroupI[]>([]);
