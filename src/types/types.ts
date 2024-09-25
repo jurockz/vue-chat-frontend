@@ -7,5 +7,5 @@ export interface messageGroupI {
 export interface messageI {
   id: string;
   message: string;
-  time?: string;
+  date?: number;
 }

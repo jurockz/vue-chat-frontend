@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { messageI } from "../types/types";
 
-defineProps<{
+const props = defineProps<{
   message: messageI;
   ownMessage: boolean;
   username: string;
   username_color: string;
   first: boolean;
 }>();
+
+let time = "";
+if (props.message.date) {
+  const date = new Date(props.message.date);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  time = `${hours}:${minutes}`;
+}
 </script>
 
 <template>
@@ -25,6 +33,7 @@ defineProps<{
           {{ username }}
         </div>
         <div class="text">{{ message.message }}</div>
+        <div class="time" v-if="time">{{ time }}</div>
       </div>
     </div>
   </div>
@@ -92,5 +101,12 @@ defineProps<{
 
 .username {
   padding-bottom: 5px;
+}
+
+.time {
+  text-align: end;
+  padding-top: 5px;
+  font-size: 12px;
+  color: #888;
 }
 </style>

@@ -63,10 +63,11 @@ const sendMessage = () => {
   if (messageInput.value) {
     const message = messageInput.value.innerText.trim();
     if (message) {
+      const date = Date.now();
       const group: messageGroupI = {
         username: props.username,
         color: getColor(props.username),
-        messages: [{ id: uuidv4(), message }],
+        messages: [{ id: uuidv4(), message, date: date }],
       };
       addMessage(group);
       console.log("SEND_MESSAGE");
