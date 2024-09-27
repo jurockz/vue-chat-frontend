@@ -149,7 +149,6 @@ onUpdated(() => {
         contenteditable="true"
         @keydown="enterDown"
         class="message_input"
-        placeholder="Enter a message...."
       ></div>
       <SendIcon class="send_button" @click="sendMessage" />
     </div>
@@ -195,7 +194,7 @@ onUpdated(() => {
 }
 
 .message_input:empty::before {
-  content: "Gib eine Nachicht ein.";
+  content: "Gib eine Nachricht ein.";
   color: #888;
   font-size: 20px;
   pointer-events: none;
